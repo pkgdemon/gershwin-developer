@@ -1,46 +1,20 @@
-llvm
-jpeg-turbo
-tiff
-png
-lcms2
-libxml2
-libxslt
-gnutls
-libffi
-icu
-pkgconf
-cairo
-libXft
-flite
-libXt
-portaudio
-gmake
-cmake-core
-openssl
-freeglut
-giflib
-libao
-libxcb
-xcb-util-cursor
-xcb-util
-xcb-util-wm
-xrandr
-libXrandr
-libXcursor
-wget
-curl
-libXcomposite
-libXtst
-squashfs-tools-ng
-fusefs-squashfuse
-autoconf
-automake
-libtool
-libvncserver
-freerdp
-ffmpeg
-sqlite3
-xdotool
-alsa-lib
-alsa-seq-server
-alsa-utils
+# Gershwin on NextBSD: NextBSD packages only, from the NextBSD repository
+# (nextbsd/nextbsd-pkg). bootstrap.sh installs these with `pkg install -r NextBSD`,
+# so no FreeBSD port is ever pulled in. One package per line; text after # is
+# ignored.
+#
+# Already in the base system (NextBSD-everything), so not listed:
+#   NextBSD-freebsd-compat  OpenSSL, zlib, libarchive, libexecinfo, fetch(1)
+#   NextBSD-userland        ICU 76.1 (icu-uc/icu-i18n), Apple libxml2/libxslt/libffi/curl, dns_sd
+#   NextBSD-contrib         sudo, zsh, pico (also as nano)
+#
+# Not available as NextBSD packages, and deliberately not installed: D-Bus,
+# ImageMagick, freeglut, portaudio, lcms2, ALSA, squashfs-tools-ng, squashfuse,
+# xdotool, wget, libvncserver, FreeRDP, libintl (gettext) and GNU libiconv.
+
+NextBSD-xlibs             # X client libraries in /usr/X11: libX11, libxcb + xcb-util*, libXft, libXt, libXrandr, libXcomposite, libXcursor, libXtst, ...
+NextBSD-mesa              # libglvnd EGL/GLES/OpenGL, Mesa DRI drivers, libGLU
+NextBSD-mesa-x11          # GLX and libGL
+NextBSD-gnustep-support   # jpeg-turbo, libpng, libtiff, giflib, GnuTLS, cairo, libsndfile, libao, SQLite, flite, FFmpeg
+NextBSD-printing-support  # Apple's CUPS (libcups, cups-config): libs-gui printing and the Printers pane
+NextBSD-toolchain         # clang/lld 19.1.7, gmake, pkgconf, git, CMake, autoconf/automake/libtool
