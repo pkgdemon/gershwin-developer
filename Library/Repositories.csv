@@ -42,11 +42,11 @@ libs-back,https://github.com/gnustep/libs-back.git,bbcc3de7cab63b6e65944edf02f2b
 libs-av,https://github.com/gnustep/libs-av.git,26566e25043ffc354364a9a5ff2c69252f81d404,
 libs-steptalk,https://github.com/gnustep/libs-steptalk.git,2b57b46963d05729032a740f0697de7fed237e4f,
 plugins-themes-WinUXTheme,https://github.com/gnustep/plugins-themes-WinUXTheme.git,92ab1fb034ce8b8be82441730d4b843eda708b6e,,windows
-gershwin-system,https://github.com/gershwin-desktop/gershwin-system.git,,YES
+gershwin-system,https://github.com/pkgdemon/gershwin-system.git,,YES
 gershwin-systempreferences,https://github.com/gershwin-desktop/gershwin-systempreferences.git,,
 gershwin-workspace,https://github.com/gershwin-desktop/gershwin-workspace.git,,
 gershwin-eau-theme,https://github.com/gershwin-desktop/gershwin-eau-theme.git,,
-gershwin-terminal,https://github.com/gershwin-desktop/gershwin-terminal.git,,
+gershwin-terminal,https://github.com/pkgdemon/gershwin-terminal.git,,
 gershwin-textedit,https://github.com/gershwin-desktop/gershwin-textedit.git,,
 gershwin-windowmanager,https://github.com/gershwin-desktop/gershwin-windowmanager.git,,YES
 gershwin-components,https://github.com/pkgdemon/gershwin-components.git,,
