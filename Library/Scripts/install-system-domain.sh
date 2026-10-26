@@ -489,7 +489,19 @@ build_libsgui() {
   patch.sh libs-gui
 
   cd "$REPOS_DIR/libs-gui"
-  ./configure $BUILD_FLAG
+  if [ "$NEXTBSD" -eq 1 ]; then
+    # NextBSD's ICU is Apple's libicucore: headers in /usr/include/icucore,
+    # library in /usr/lib/system, described by icu-i18n.pc. libs-gui's configure
+    # finds icu-i18n.pc but then checks the unicode/*.h headers WITHOUT the
+    # module's cflags, so the check fails and it falls back to hard-coded
+    # -licui18n -licuuc -licudata (which NextBSD doesn't have), and the link of
+    # libgnustep-gui fails. Passing the cflags lets the pkg-config path succeed
+    # (ICU_LIBS = -L/usr/lib/system -licucore); configure also records them in
+    # config.make (CONFIG_SYSTEM_INCL) for the build.
+    ./configure $BUILD_FLAG CPPFLAGS="$(pkg-config --cflags icu-i18n)"
+  else
+    ./configure $BUILD_FLAG
+  fi
   if [ "$WINDOWS" -eq 1 ]; then
     $MAKE_CMD -j"$CPUS" OBJCFLAGS="$WIN_OBJCFLAGS" || exit 1
     return
