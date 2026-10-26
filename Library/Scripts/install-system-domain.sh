@@ -76,6 +76,19 @@ if [ "$(uname -s)" = "OpenBSD" ]; then
   export LIBRARY_PATH="/usr/X11R6/lib${LIBRARY_PATH:+:$LIBRARY_PATH}"
 fi
 
+# On NextBSD the X11 stack is part of the base system, in /usr/X11 (the
+# NextBSD-xlibs, -mesa and -gnustep-support packages; cairo lives there too).
+# pkgconf already searches /usr/X11/lib/pkgconfig and rtld already searches
+# /usr/X11/lib at run time, but clang does not look in /usr/X11/include or
+# /usr/X11/lib by itself, and many GNUmakefiles name -lX11, -lXrandr and the
+# X headers directly instead of asking pkg-config. CPATH and LIBRARY_PATH are
+# read by the compiler driver on every invocation, so they also reach the
+# stages that pass CPPFLAGS or LDFLAGS on the make command line.
+if [ "$NEXTBSD" -eq 1 ]; then
+  export CPATH="/usr/X11/include${CPATH:+:$CPATH}"
+  export LIBRARY_PATH="/usr/X11/lib${LIBRARY_PATH:+:$LIBRARY_PATH}"
+fi
+
 # Windows: the build runs in an MSYS2 UCRT64 shell with the mingw-w64 clang
 # toolchain, and /System is a directory inside the MSYS2 root (for the shell
 # and make it is /System; for native programs such as cmake and the compiled
@@ -617,7 +630,15 @@ build_workspace() {
     $MAKE_CMD -j"$CPUS" OBJCFLAGS="-g" || exit 1
     return
   fi
-  ./configure $BUILD_FLAG
+  if [ "$NEXTBSD" -eq 1 ]; then
+    # NextBSD ships no D-Bus: GNUstep apps reach Workspace over Distributed
+    # Objects, and the D-Bus services (org.freedesktop.FileManager1, the Unity
+    # launcher badges) only serve foreign toolkit apps. Turned off explicitly
+    # so a libdbus from another repository is never picked up by accident.
+    ./configure $BUILD_FLAG --disable-dbus
+  else
+    ./configure $BUILD_FLAG
+  fi
   $MAKE_CMD -j"$CPUS" || exit 1
 }
 

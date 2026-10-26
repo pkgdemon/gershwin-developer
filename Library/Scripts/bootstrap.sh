@@ -145,7 +145,12 @@ case "$OS_ID" in
     ;;
 
   nextbsd)
+    # NextBSD packages only: the list names NextBSD-* packages, and -r NextBSD
+    # keeps pkg from resolving anything from another repository (such as a
+    # FreeBSD repo a user added under /usr/local/etc/pkg/repos).
     while IFS= read -r pkg || [ -n "$pkg" ]; do
+      pkg="${pkg%%#*}"           # strip comments after #
+      pkg="$(echo "$pkg" | xargs)" # trim whitespace
       [ -z "$pkg" ] && continue
       if ! pkg info "$pkg" >/dev/null 2>&1; then
         missing="$missing $pkg"
@@ -154,7 +159,7 @@ case "$OS_ID" in
 
     if [ -n "$missing" ]; then
       echo "Installing:$missing"
-      pkg install -y $missing
+      pkg install -y -r NextBSD $missing
     else
       echo "All required packages are already installed."
     fi
