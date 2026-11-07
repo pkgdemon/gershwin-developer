@@ -17,4 +17,5 @@ NextBSD-mesa              # libglvnd EGL/GLES/OpenGL, Mesa DRI drivers, libGLU
 NextBSD-mesa-x11          # GLX and libGL
 NextBSD-gnustep-support   # jpeg-turbo, libpng, libtiff, giflib, GnuTLS, cairo, libsndfile, libao, SQLite, flite, FFmpeg
 NextBSD-printing-support  # Apple's CUPS (libcups, cups-config): libs-gui printing and the Printers pane
+NextBSD-bootloader-gershwin # grey boot splash (bootsplash_style="grey", #5F6770) matching LoginWindow (E19, nextbsd/nextbsd#542)
 NextBSD-toolchain         # clang/lld 19.1.7, gmake, pkgconf, git, CMake, autoconf/automake/libtool
